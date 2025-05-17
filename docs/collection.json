@@ -1,0 +1,3923 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "NocoBase API documentation",
+        "description": "",
+        "contact": {
+            "url": "https://github.com/nocobase/nocobase/issues"
+        },
+        "license": {
+            "name": "Core packages are Apache 2.0 & Plugins packages are AGPL 3.0 licensed.",
+            "url": "https://github.com/nocobase/nocobase#license"
+        },
+        "version": "1.6.28"
+    },
+    "externalDocs": {
+        "description": "Find out more about NocoBase",
+        "url": "https://docs.nocobase.com/api/http"
+    },
+    "components": {
+        "securitySchemes": {
+            "api-key": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        },
+        "schemas": {
+            "error": {
+                "type": "object",
+                "properties": {
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "description": "错误信息",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "c_Workflows": {
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "note": {
+                        "type": "string"
+                    },
+                    "api_json_content": {
+                        "type": "string"
+                    },
+                    "frontend_json_content": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "workflow_uuid": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "instance_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "batch_count": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "c_Workflows.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_Workflows"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "updatedAt": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            },
+                            "updatedById": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            },
+            "c_image_seq": {
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "image_set_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "sort": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "image_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "prompt": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "c_image_seq.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_image_seq"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "updatedAt": {
+                                "readOnly": true
+                            },
+                            "sort": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            },
+                            "updatedById": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            },
+            "c_s3_images": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "extname": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "mimetype": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "preview": {
+                        "type": "string"
+                    },
+                    "meta": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "hash": {
+                        "type": "string"
+                    },
+                    "orders": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "f_yb4kk4vvt0l": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "c_s3_images.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_s3_images"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "updatedAt": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            },
+                            "updatedById": {
+                                "readOnly": true
+                            },
+                            "orders": {
+                                "readOnly": true
+                            },
+                            "f_yb4kk4vvt0l": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            },
+            "c_Prompts": {
+                "type": "object",
+                "properties": {
+                    "prompt_uuid": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "start_time": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "end_time": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "client_id": {
+                        "type": "string"
+                    },
+                    "extra_data_json": {
+                        "type": "string"
+                    },
+                    "progress_value": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "progress_max": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "progress_node": {
+                        "type": "string"
+                    },
+                    "progress_percent": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "workflow_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "c_Prompts.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_Prompts"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "updatedAt": {
+                                "readOnly": true
+                            },
+                            "updatedById": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            },
+            "c_instance": {
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "hardware": {
+                        "type": "string"
+                    },
+                    "cpu_util": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "ram_util": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "disk_util": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "last_active_time": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "queued_count": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "executed_count": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "auth_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                }
+            },
+            "c_instance.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_instance"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "updatedAt": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            },
+                            "updatedById": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            },
+            "c_image_set": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "image_list": {
+                        "type": "string"
+                    }
+                }
+            },
+            "c_image_set.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_image_set"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            },
+            "c_workflow_template": {
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "workflow_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "markdown": {
+                        "type": "string"
+                    },
+                    "images": {
+                        "type": "string"
+                    }
+                }
+            },
+            "c_workflow_template.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_workflow_template"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "updatedAt": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            },
+                            "updatedById": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            },
+            "c_local_images": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "extname": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "mimetype": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "preview": {
+                        "type": "string"
+                    },
+                    "meta": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "md5": {
+                        "type": "string"
+                    }
+                }
+            },
+            "c_local_images.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_local_images"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "updatedAt": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            },
+                            "updatedById": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            },
+            "c_AuthToken": {
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "header_key": {
+                        "type": "string"
+                    },
+                    "header_value": {
+                        "type": "string"
+                    },
+                    "form_field": {
+                        "type": "string"
+                    },
+                    "extra_value": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "c_AuthToken.form": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/c_AuthToken"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "readOnly": true
+                            },
+                            "createdAt": {
+                                "readOnly": true
+                            },
+                            "updatedAt": {
+                                "readOnly": true
+                            },
+                            "createdById": {
+                                "readOnly": true
+                            },
+                            "updatedById": {
+                                "readOnly": true
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "parameters": {
+            "collectionIndex": {
+                "required": true,
+                "name": "collectionIndex",
+                "in": "path",
+                "description": "collection index",
+                "schema": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "filterByTk": {
+                "name": "filterByTk",
+                "in": "query",
+                "description": "filter by TK(default by ID)",
+                "schema": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "filterByTks": {
+                "name": "filterByTk",
+                "in": "query",
+                "description": "filter by TKs(default by ID), example: `1,2,3`",
+                "schema": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "filter": {
+                "name": "filter",
+                "in": "query",
+                "description": "filter items",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "sort": {
+                "name": "sort",
+                "in": "query",
+                "description": "sort items by fields, example: `-field1,-field2,field3`",
+                "schema": {
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "-id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "-id,createdAt"
+                        }
+                    ]
+                }
+            },
+            "fields": {
+                "name": "fields",
+                "in": "query",
+                "description": "select fields, example: `field1,field2`",
+                "schema": {
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        }
+                    ]
+                }
+            },
+            "except": {
+                "name": "except",
+                "in": "query",
+                "description": "except fields in results, example: `field1,field2`",
+                "schema": {
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        }
+                    ]
+                }
+            },
+            "appends": {
+                "name": "appends",
+                "in": "query",
+                "description": "append associations in results, example: `assoc1,assoc2`",
+                "schema": {
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        }
+                    ]
+                }
+            },
+            "whitelist": {
+                "name": "whitelist",
+                "in": "query",
+                "description": "whitelist for fields changes, example: `field1,field2`",
+                "schema": {
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        }
+                    ]
+                }
+            },
+            "blacklist": {
+                "name": "blacklist",
+                "in": "query",
+                "description": "blacklist for fields changes, example: `field1,field2`",
+                "schema": {
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "id",
+                                "createdAt"
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "example": "id,createdAt"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "api-key": []
+        }
+    ],
+    "servers": [
+        {
+            "url": "/api/"
+        }
+    ],
+    "paths": {
+        "/c_Workflows:list": {
+            "get": {
+                "tags": [
+                    "c_Workflows"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_Workflows"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_Workflows:get": {
+            "get": {
+                "tags": [
+                    "c_Workflows"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_Workflows"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_Workflows:create": {
+            "post": {
+                "tags": [
+                    "c_Workflows"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_Workflows.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_Workflows"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_Workflows:update": {
+            "post": {
+                "tags": [
+                    "c_Workflows"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_Workflows.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_Workflows"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_Workflows:destroy": {
+            "post": {
+                "tags": [
+                    "c_Workflows"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_image_seq:list": {
+            "get": {
+                "tags": [
+                    "c_image_seq"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_image_seq"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_image_seq:get": {
+            "get": {
+                "tags": [
+                    "c_image_seq"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_image_seq"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_image_seq:create": {
+            "post": {
+                "tags": [
+                    "c_image_seq"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_image_seq.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_image_seq"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_image_seq:update": {
+            "post": {
+                "tags": [
+                    "c_image_seq"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_image_seq.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_image_seq"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_image_seq:destroy": {
+            "post": {
+                "tags": [
+                    "c_image_seq"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_image_seq:move": {
+            "post": {
+                "tags": [
+                    "c_image_seq"
+                ],
+                "summary": "Move record",
+                "parameters": [
+                    {
+                        "name": "sourceId",
+                        "in": "query",
+                        "description": "source id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "targetId",
+                        "in": "query",
+                        "description": "move target id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "method",
+                        "in": "query",
+                        "description": "move method, insertAfter or insertBefore",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sortField",
+                        "in": "query",
+                        "description": "sort field name, default is sort",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "targetScope",
+                        "in": "query",
+                        "description": "move target scope",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sticky",
+                        "in": "query",
+                        "description": "sticky to top",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_s3_images:list": {
+            "get": {
+                "tags": [
+                    "c_s3_images"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_s3_images"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_s3_images:get": {
+            "get": {
+                "tags": [
+                    "c_s3_images"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_s3_images"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_s3_images:create": {
+            "post": {
+                "tags": [
+                    "c_s3_images"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_s3_images.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_s3_images"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_s3_images:update": {
+            "post": {
+                "tags": [
+                    "c_s3_images"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_s3_images.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_s3_images"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_s3_images:destroy": {
+            "post": {
+                "tags": [
+                    "c_s3_images"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_s3_images:move": {
+            "post": {
+                "tags": [
+                    "c_s3_images"
+                ],
+                "summary": "Move record",
+                "parameters": [
+                    {
+                        "name": "sourceId",
+                        "in": "query",
+                        "description": "source id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "targetId",
+                        "in": "query",
+                        "description": "move target id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "method",
+                        "in": "query",
+                        "description": "move method, insertAfter or insertBefore",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sortField",
+                        "in": "query",
+                        "description": "sort field name, default is sort",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "targetScope",
+                        "in": "query",
+                        "description": "move target scope",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sticky",
+                        "in": "query",
+                        "description": "sticky to top",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_Prompts:list": {
+            "get": {
+                "tags": [
+                    "c_Prompts"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_Prompts"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_Prompts:get": {
+            "get": {
+                "tags": [
+                    "c_Prompts"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_Prompts"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_Prompts:create": {
+            "post": {
+                "tags": [
+                    "c_Prompts"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_Prompts.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_Prompts"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_Prompts:update": {
+            "post": {
+                "tags": [
+                    "c_Prompts"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_Prompts.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_Prompts"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_Prompts:destroy": {
+            "post": {
+                "tags": [
+                    "c_Prompts"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_instance:list": {
+            "get": {
+                "tags": [
+                    "c_instance"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_instance"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_instance:get": {
+            "get": {
+                "tags": [
+                    "c_instance"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_instance"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_instance:create": {
+            "post": {
+                "tags": [
+                    "c_instance"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_instance.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_instance"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_instance:update": {
+            "post": {
+                "tags": [
+                    "c_instance"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_instance.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_instance"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_instance:destroy": {
+            "post": {
+                "tags": [
+                    "c_instance"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_image_set:list": {
+            "get": {
+                "tags": [
+                    "c_image_set"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_image_set"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_image_set:get": {
+            "get": {
+                "tags": [
+                    "c_image_set"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_image_set"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_image_set:create": {
+            "post": {
+                "tags": [
+                    "c_image_set"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_image_set.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_image_set"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_image_set:update": {
+            "post": {
+                "tags": [
+                    "c_image_set"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_image_set.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_image_set"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_image_set:destroy": {
+            "post": {
+                "tags": [
+                    "c_image_set"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_workflow_template:list": {
+            "get": {
+                "tags": [
+                    "c_workflow_template"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_workflow_template"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_workflow_template:get": {
+            "get": {
+                "tags": [
+                    "c_workflow_template"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_workflow_template"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_workflow_template:create": {
+            "post": {
+                "tags": [
+                    "c_workflow_template"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_workflow_template.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_workflow_template"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_workflow_template:update": {
+            "post": {
+                "tags": [
+                    "c_workflow_template"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_workflow_template.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_workflow_template"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_workflow_template:destroy": {
+            "post": {
+                "tags": [
+                    "c_workflow_template"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_local_images:list": {
+            "get": {
+                "tags": [
+                    "c_local_images"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_local_images"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_local_images:get": {
+            "get": {
+                "tags": [
+                    "c_local_images"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_local_images"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_local_images:create": {
+            "post": {
+                "tags": [
+                    "c_local_images"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_local_images.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_local_images"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_local_images:update": {
+            "post": {
+                "tags": [
+                    "c_local_images"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_local_images.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_local_images"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_local_images:destroy": {
+            "post": {
+                "tags": [
+                    "c_local_images"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/c_AuthToken:list": {
+            "get": {
+                "tags": [
+                    "c_AuthToken"
+                ],
+                "summary": "Returns a list of the collection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/c_AuthToken"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "description": "total count"
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "description": "current page"
+                                                },
+                                                "pageSize": {
+                                                    "type": "integer",
+                                                    "description": "items count per page"
+                                                },
+                                                "totalPage": {
+                                                    "type": "integer",
+                                                    "description": "total page"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_AuthToken:get": {
+            "get": {
+                "tags": [
+                    "c_AuthToken"
+                ],
+                "summary": "Return a record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/appends"
+                    },
+                    {
+                        "$ref": "#/components/parameters/except"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_AuthToken"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_AuthToken:create": {
+            "post": {
+                "tags": [
+                    "c_AuthToken"
+                ],
+                "summary": "Create record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_AuthToken.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_AuthToken"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_AuthToken:update": {
+            "post": {
+                "tags": [
+                    "c_AuthToken"
+                ],
+                "summary": "Update record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/whitelist"
+                    },
+                    {
+                        "$ref": "#/components/parameters/blacklist"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/c_AuthToken.form"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/c_AuthToken"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c_AuthToken:destroy": {
+            "post": {
+                "tags": [
+                    "c_AuthToken"
+                ],
+                "summary": "Delete record",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "c_AuthToken",
+            "description": "CUI 认证令牌管理"
+        },
+        {
+            "name": "c_local_images",
+            "description": "CUI 图片列表"
+        },
+        {
+            "name": "c_workflow_template",
+            "description": "CUI 工作流执行模版"
+        },
+        {
+            "name": "c_image_set",
+            "description": "CUI 图片组合"
+        },
+        {
+            "name": "c_instance",
+            "description": "CUI 实例"
+        },
+        {
+            "name": "c_Prompts",
+            "description": "CUI 任务执行记录"
+        },
+        {
+            "name": "c_s3_images",
+            "description": "CUI 图片列表S3"
+        },
+        {
+            "name": "c_image_seq",
+            "description": "CUI 图片序列"
+        },
+        {
+            "name": "c_Workflows",
+            "description": "CUI 工作流"
+        }
+    ]
+}

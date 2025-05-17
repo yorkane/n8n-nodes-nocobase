@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 黑色背景圆形 -->
+  <circle cx="64" cy="64" r="64" fill="black"/>
+  
+  <!-- 白色 N 字母带黑色边框 -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M90 32H78V60L50 32H38V96H50V68L78 96H90V32Z" fill="white" stroke="black" stroke-width="2"/>
+  
+  <!-- 白色圆点带黑色边框 -->
+  <circle cx="64" cy="64" r="6" fill="black" stroke="black" stroke-width="14"/>
+</svg> 

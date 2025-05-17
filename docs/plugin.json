@@ -1,0 +1,3561 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "NocoBase API documentation",
+        "description": "",
+        "contact": {
+            "url": "https://github.com/nocobase/nocobase/issues"
+        },
+        "license": {
+            "name": "Core packages are Apache 2.0 & Plugins packages are AGPL 3.0 licensed.",
+            "url": "https://github.com/nocobase/nocobase#license"
+        },
+        "version": "1.6.20"
+    },
+    "paths": {
+        "/roles:list": {
+            "get": {
+                "tags": [
+                    "roles"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles:get": {
+            "get": {
+                "tags": [
+                    "roles"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "role name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/role"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles:create": {
+            "post": {
+                "tags": [
+                    "roles"
+                ],
+                "description": "",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/role"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/role"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles:update": {
+            "post": {
+                "tags": [
+                    "roles"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "role name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/role"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/role"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles:destroy": {
+            "post": {
+                "tags": [
+                    "roles"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "role name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/roles:check": {
+            "get": {
+                "tags": [
+                    "roles"
+                ],
+                "description": "return current user role",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/role"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles:setDefaultRole": {
+            "post": {
+                "tags": [
+                    "roles"
+                ],
+                "description": "set default role for new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "roleName": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/roles/{roleName}/collections:list": {
+            "get": {
+                "tags": [
+                    "roles.collections"
+                ],
+                "description": "list permissions of collections for role by roleName",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "role name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "collection"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "description": "collection name"
+                                            },
+                                            "collectionName": {
+                                                "type": "string",
+                                                "description": "collection name"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "description": "collection title"
+                                            },
+                                            "roleName": {
+                                                "type": "string",
+                                                "description": "role name"
+                                            },
+                                            "usingConfig": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "resourceAction",
+                                                    "strategy"
+                                                ],
+                                                "description": "resourceAction: 单独配置, strategy: 全局策略"
+                                            },
+                                            "exists": {
+                                                "type": "boolean",
+                                                "description": "是否存在单独配置的权限"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/availableActions:list": {
+            "get": {
+                "tags": [
+                    "availableActions"
+                ],
+                "description": "available actions of resource in current system",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "description": "Action名称"
+                                            },
+                                            "displayName": {
+                                                "type": "string",
+                                                "description": "Action显示名称"
+                                            },
+                                            "allowConfigureFields": {
+                                                "type": "boolean",
+                                                "description": "是否允许配置字段"
+                                            },
+                                            "onNewRecord": {
+                                                "type": "string",
+                                                "description": "是否是新记录的Action"
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "description": "new-data 或者 old-data"
+                                            },
+                                            "aliases": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "description": "别名"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/{collectionName}:export": {
+            "post": {
+                "tags": [
+                    "$collection"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/{collectionName}:importXlsx": {
+            "post": {
+                "tags": [
+                    "$collection"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/{collectionName}:downloadXlsxTemplate": {
+            "post": {
+                "tags": [
+                    "$collection"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/auth:check": {
+            "get": {
+                "description": "Check if the user is logged in",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Authenticator",
+                        "description": "登录方式标识",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "default": "basic"
+                        }
+                    }
+                ],
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/user"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "roles": {
+                                                    "$ref": "#/components/schemas/roles"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth:signIn": {
+            "post": {
+                "description": "Sign in",
+                "tags": [
+                    "Basic auth"
+                ],
+                "security": [],
+                "parameters": [
+                    {
+                        "name": "X-Authenticator",
+                        "description": "登录方式标识",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "default": "basic"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "邮箱"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "密码"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/user"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth:signUp": {
+            "post": {
+                "description": "Sign up",
+                "tags": [
+                    "Basic auth"
+                ],
+                "security": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "邮箱"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "密码"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string",
+                                        "description": "确认密码"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    }
+                }
+            }
+        },
+        "/auth:signOut": {
+            "post": {
+                "description": "Sign out",
+                "tags": [
+                    "Basic auth"
+                ],
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    }
+                }
+            }
+        },
+        "/auth:changePassword": {
+            "post": {
+                "description": "Change password",
+                "tags": [
+                    "Basic auth"
+                ],
+                "security": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "oldPassword": {
+                                        "type": "string",
+                                        "description": "旧密码"
+                                    },
+                                    "newPassword": {
+                                        "type": "string",
+                                        "description": "新密码"
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string",
+                                        "description": "确认密码"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/user"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "authenticators:listTypes": {
+            "get": {
+                "description": "List authenticator types",
+                "tags": [
+                    "Authenticator"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "authenticators:publicList": {
+            "get": {
+                "description": "List enabled authenticators",
+                "tags": [
+                    "Authenticator"
+                ],
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "description": "登录方式标识"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "description": "登录方式标题"
+                                            },
+                                            "authType": {
+                                                "type": "string",
+                                                "description": "登录方式类型"
+                                            },
+                                            "options": {
+                                                "type": "object",
+                                                "description": "登录方式公开配置"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "authenticators:create": {
+            "post": {
+                "description": "Create authenticator",
+                "tags": [
+                    "Authenticator"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "登录方式标识"
+                                    },
+                                    "authType": {
+                                        "type": "string",
+                                        "description": "登录方式类型"
+                                    },
+                                    "options": {
+                                        "type": "object",
+                                        "description": "登录方式配置"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authenticator"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "authenticators:list": {
+            "get": {
+                "description": "List authenticators",
+                "tags": [
+                    "Authenticator"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/authenticator"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "authenticators:get": {
+            "get": {
+                "description": "Get authenticator",
+                "tags": [
+                    "Authenticator"
+                ],
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authenticator"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "authenticators:update": {
+            "post": {
+                "description": "Update authenticator",
+                "tags": [
+                    "Authenticator"
+                ],
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/authenticator"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authenticator"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "authenticators:destroy": {
+            "post": {
+                "description": "Destroy authenticator",
+                "tags": [
+                    "Authenticator"
+                ],
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    }
+                }
+            }
+        },
+        "/collections:list": {
+            "get": {
+                "tags": [
+                    "collections"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections:get": {
+            "get": {
+                "tags": [
+                    "collections"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections:create": {
+            "post": {
+                "tags": [
+                    "collections"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections:update": {
+            "post": {
+                "tags": [
+                    "collections"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections:destroy": {
+            "post": {
+                "tags": [
+                    "collections"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections:move": {
+            "post": {
+                "tags": [
+                    "collections"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections:setFields": {
+            "post": {
+                "tags": [
+                    "collections"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections/{collectionName}/fields:get": {
+            "get": {
+                "tags": [
+                    "collections.fields"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections/{collectionName}/fields:list": {
+            "get": {
+                "tags": [
+                    "collections.fields"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections/{collectionName}/fields:create": {
+            "post": {
+                "tags": [
+                    "collections.fields"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections/{collectionName}/fields:update": {
+            "post": {
+                "tags": [
+                    "collections.fields"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections/{collectionName}/fields:destroy": {
+            "post": {
+                "tags": [
+                    "collections.fields"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collections/{collectionName}/fields:move": {
+            "post": {
+                "tags": [
+                    "collections.fields"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collectionCategories:list": {
+            "post": {
+                "tags": [
+                    "collectionCategories"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collectionCategories:get": {
+            "post": {
+                "tags": [
+                    "collectionCategories"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collectionCategories:create": {
+            "post": {
+                "tags": [
+                    "collectionCategories"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collectionCategories:update": {
+            "post": {
+                "tags": [
+                    "collectionCategories"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collectionCategories:destroy": {
+            "post": {
+                "tags": [
+                    "collectionCategories"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/collectionCategories:move": {
+            "post": {
+                "tags": [
+                    "collectionCategories"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/dbViews:get": {
+            "get": {
+                "tags": [
+                    "dbViews"
+                ],
+                "summary": "get db view fields",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "view name in database",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "example": "posts_view"
+                    },
+                    {
+                        "name": "schema",
+                        "in": "query",
+                        "description": "postgres schema of view in database",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "fields": {
+                                                    "type": "object",
+                                                    "additionalProperties": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "description": "field name"
+                                                            },
+                                                            "type": {
+                                                                "type": "string",
+                                                                "description": "field type"
+                                                            },
+                                                            "source": {
+                                                                "type": "string",
+                                                                "required": false,
+                                                                "description": "source field of view field"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "sources": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dbViews:list": {
+            "get": {
+                "tags": [
+                    "dbViews"
+                ],
+                "summary": "list views that not connected to collections in database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "description": "name of view"
+                                                    },
+                                                    "definition": {
+                                                        "type": "string",
+                                                        "description": "definition of view"
+                                                    },
+                                                    "schema": {
+                                                        "type": "string",
+                                                        "description": "schema of view"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dbViews:query": {
+            "get": {
+                "tags": [
+                    "dbViews"
+                ],
+                "summary": "query db view data",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "view name in database",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "example": "posts_view"
+                    },
+                    {
+                        "name": "schema",
+                        "in": "query",
+                        "description": "postgres schema of view in database",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "page size",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "description": "row data of view",
+                                                "additionalProperties": {
+                                                    "type": "object",
+                                                    "description": "row data's field value"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/{fileCollectionName}:create": {
+            "post": {
+                "tags": [
+                    "$collection"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/storages:list": {
+            "get": {
+                "tags": [
+                    "storages"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/storages:get": {
+            "get": {
+                "tags": [
+                    "storages"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/storages:create": {
+            "post": {
+                "tags": [
+                    "storages"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/storages:update": {
+            "post": {
+                "tags": [
+                    "storages"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/storages:destroy": {
+            "post": {
+                "tags": [
+                    "storages"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/systemSettings:get": {
+            "get": {
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/systemSettings:update": {
+            "post": {
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/uiSchemas:getJsonSchema/{uid}": {
+            "get": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/uid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/uiSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/uiSchemas:getProperties/{uid}": {
+            "get": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "获取ui schema的properties属性",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/uid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "properties": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "$ref": "#/components/schemas/uiSchema"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/uiSchemas:insert": {
+            "post": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "insert ui schema as root node",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/uiSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/uiSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/uiSchemas:remove/{uid}": {
+            "post": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "remove an ui schema node by uid",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/uid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/uiSchemas:patch": {
+            "post": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "update an ui schema node by an new ui schema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/uiSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/uiSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/uiSchemas:batchPatch": {
+            "post": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "batch update ui schema nodes by an new ui schema item",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/uiSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/uiSchemas:clearAncestor/{uid}": {
+            "post": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "Removes all ancestors of a given node",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/uid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/uiSchemas:insertAdjacent/{uid}": {
+            "post": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "insert a node adjacent to another node",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/uid"
+                    },
+                    {
+                        "name": "position",
+                        "in": "query",
+                        "required": true,
+                        "description": "position",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "beforeBegin",
+                                "afterBegin",
+                                "beforeEnd",
+                                "afterEnd"
+                            ]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/uiSchema"
+                                    },
+                                    "wrap": {
+                                        "$ref": "#/components/schemas/uiSchema"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/uiSchemas:saveAsTemplate": {
+            "post": {
+                "tags": [
+                    "uiSchemas"
+                ],
+                "description": "save an ui schema as template",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "required": true,
+                        "description": "filterByTk",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "collectionName": {
+                                        "type": "string"
+                                    },
+                                    "componentName": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "template's name"
+                                    },
+                                    "resourceName": {
+                                        "type": "string",
+                                        "description": "template's resourceName"
+                                    },
+                                    "uid": {
+                                        "type": "string",
+                                        "description": "ui schema id"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/userData:push": {
+            "post": {
+                "description": "Push user data",
+                "tags": [
+                    "Push"
+                ],
+                "security": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/userData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    }
+                }
+            }
+        },
+        "/users:list": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/user"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users:get": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/user"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users:create": {
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "description": "",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/user"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/user"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users:update": {
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/user"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/user"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users:destroy": {
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "role name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications:list": {
+            "get": {
+                "tags": [
+                    "verifications"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications:get": {
+            "get": {
+                "tags": [
+                    "verifications"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications:create": {
+            "post": {
+                "tags": [
+                    "verifications"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications:update": {
+            "post": {
+                "tags": [
+                    "verifications"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications:destroy": {
+            "post": {
+                "tags": [
+                    "verifications"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications_providers:list": {
+            "get": {
+                "tags": [
+                    "verifications_providers"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications_providers:create": {
+            "post": {
+                "tags": [
+                    "verifications_providers"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications_providers:update": {
+            "post": {
+                "tags": [
+                    "verifications_providers"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/verifications_providers:destroy": {
+            "post": {
+                "tags": [
+                    "verifications_providers"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/workflows:list": {
+            "get": {
+                "tags": [
+                    "workflows"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "$ref": "#/components/schemas/workflow/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/workflow/model"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/workflows:get": {
+            "get": {
+                "tags": [
+                    "workflows"
+                ],
+                "description": "Get single workflow",
+                "parameters": [
+                    {
+                        "$ref": "#/components/schemas/workflow/filterByTk"
+                    },
+                    {
+                        "$ref": "#/components/schemas/workflow/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/workflow/model"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "nodes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/node"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/workflows:create": {
+            "post": {
+                "tags": [
+                    "workflows"
+                ],
+                "description": "Create new workflow",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "$ref": "#/components/schemas/workflow/model/properties/title"
+                                    },
+                                    "type": {
+                                        "$ref": "#/components/schemas/workflow/model/properties/type"
+                                    },
+                                    "description": {
+                                        "$ref": "#/components/schemas/workflow/model/properties/description"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/workflow"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/workflows:update": {
+            "post": {
+                "tags": [
+                    "workflows"
+                ],
+                "description": "Update a workflow",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "$ref": "#/components/schemas/workflow/model/properties/title"
+                                    },
+                                    "enabled": {
+                                        "$ref": "#/components/schemas/workflow/model/properties/enabled"
+                                    },
+                                    "description": {
+                                        "$ref": "#/components/schemas/workflow/model/properties/description"
+                                    },
+                                    "config": {
+                                        "$ref": "#/components/schemas/workflow/model/properties/config"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/workflows:destroy": {
+            "post": {
+                "tags": [
+                    "workflows"
+                ],
+                "description": "Delete workflows. Also will delete all nodes and executions of the workflow.",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "Primary key of a record",
+                        "schema": {
+                            "type": "integer",
+                            "description": "ID. The only workflow with ID will be deleted."
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filter",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "key": {
+                                    "type": "string",
+                                    "description": "Key. If provided, all workflow with same key will be deleted."
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/workflows:revision": {
+            "post": {
+                "tags": [
+                    "workflows"
+                ],
+                "description": "Duplicate a workflow to a new version or a new workflow. All nodes will be duplicated too.",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "Primary key of a record",
+                        "schema": {
+                            "type": "integer",
+                            "description": "ID. The workflow to duplicate."
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filter",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "key": {
+                                    "type": "string",
+                                    "description": "Key. If provided, only duplicate to a new version. Or will be duplicated to a new workflow."
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/workflows:trigger": {
+            "post": {
+                "tags": [
+                    "workflows"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "triggerWorkflows",
+                        "in": "query",
+                        "description": "A combined string to describe workflows to trigger and context data to use. e.g. `?triggerWorkflows=1,2!category`. Each comma separated part is a trigger pair,  as `1` and `2!category`. The number part is the ID of workflow, exclamation means the path of association to use in form data. If ignored, will trigger with the full form data object.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/workflows/{workflowId}/nodes:create": {
+            "post": {
+                "tags": [
+                    "workflows.nodes"
+                ],
+                "description": "Create a new node in workflow",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "$ref": "#/components/schemas/node/properties/title"
+                                    },
+                                    "type": {
+                                        "$ref": "#/components/schemas/node/properties/type"
+                                    },
+                                    "upstreamId": {
+                                        "$ref": "#/components/schemas/node/properties/upstreamId"
+                                    },
+                                    "branchIndex": {
+                                        "$ref": "#/components/schemas/node/properties/branchIndex"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/node"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/flow_nodes:update": {
+            "post": {
+                "tags": [
+                    "flow_nodes"
+                ],
+                "description": "Update node properties.",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "Primary key of a record",
+                        "schema": {
+                            "type": "integer",
+                            "description": "ID"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "$ref": "#/components/schemas/node/properties/title"
+                                    },
+                                    "config": {
+                                        "$ref": "#/components/schemas/node/properties/config"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request. Node in exected workflow cannot be updated."
+                    }
+                }
+            }
+        },
+        "/flow_nodes:destroy": {
+            "post": {
+                "tags": [
+                    "flow_nodes"
+                ],
+                "description": "Delete a node. All nodes in sub-branches will also be deleted.",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "Primary key of a record",
+                        "schema": {
+                            "type": "integer",
+                            "description": "ID"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request. Node in exected workflow cannot be deleted."
+                    }
+                }
+            }
+        },
+        "/executions:list": {
+            "get": {
+                "tags": [
+                    "executions"
+                ],
+                "description": "Get list of executions",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "description": "List of executions",
+                                    "items": {
+                                        "$ref": "#/components/schemas/execution",
+                                        "type": "object",
+                                        "not": {
+                                            "$ref": "#/components/schemas/execution/properties/jobs"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/executions:get": {
+            "get": {
+                "tags": [
+                    "executions"
+                ],
+                "description": "Get single execution",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "Primary key of a record",
+                        "schema": {
+                            "type": "integer",
+                            "description": "ID"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/workflowManualTasks:list": {
+            "get": {
+                "tags": [
+                    "workflowManualTasks"
+                ],
+                "description": "List manual jobs",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "description": "List of manual jobs",
+                                    "items": {
+                                        "$ref": "#/components/schemas/user_job"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/workflowManualTasks:get": {
+            "get": {
+                "tags": [
+                    "workflowManualTasks"
+                ],
+                "description": "Single user job",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/user_job"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "execution": {
+                                                    "$ref": "#/components/schemas/execution"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/workflowManualTasks:submit": {
+            "post": {
+                "tags": [
+                    "workflowManualTasks"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "in": "query",
+                        "description": "Primary key of a record",
+                        "schema": {
+                            "type": "integer",
+                            "description": "ID"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "result": {
+                                        "type": "object",
+                                        "properties": {
+                                            "$formKey": {
+                                                "type": "object"
+                                            },
+                                            "_": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted"
+                    },
+                    "400": {
+                        "description": "Bad Request. Status of the job is not 0."
+                    }
+                }
+            }
+        },
+        "/themeConfig:list": {
+            "get": {
+                "tags": [
+                    "themeConfig"
+                ],
+                "description": "Get a list of themes",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Theme"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/themeConfig:create": {
+            "post": {
+                "tags": [
+                    "themeConfig"
+                ],
+                "description": "Create a new theme",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "config": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "token": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ],
+                                        "additionalProperties": false
+                                    },
+                                    "optional": {
+                                        "type": "boolean"
+                                    },
+                                    "isBuiltIn": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "required": [
+                                    "config"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Theme"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/themeConfig:update": {
+            "post": {
+                "tags": [
+                    "themeConfig"
+                ],
+                "description": "Update an existing theme",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the theme to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "config": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "token": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "additionalProperties": false
+                                    },
+                                    "optional": {
+                                        "type": "boolean"
+                                    },
+                                    "isBuiltIn": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Theme"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/themeConfig:destroy": {
+            "post": {
+                "tags": [
+                    "themeConfig"
+                ],
+                "description": "Delete an existing theme",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the theme to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/swagger:getUrls": {
+            "get": {
+                "description": "Get all api-doc destination",
+                "tags": [
+                    "swagger"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/responses/SwaggerUrls"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chinaRegions:list": {
+            "get": {
+                "tags": [
+                    "chinaRegions"
+                ],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/apiKeys:create": {
+            "post": {
+                "description": "Create api key",
+                "tags": [
+                    "apiKeys"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/apiKeys"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/apiKeys:list": {
+            "get": {
+                "description": "get api keys",
+                "tags": [
+                    "apiKeys"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/apiKeys"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/apiKeys:destroy/{filterByTk}": {
+            "delete": {
+                "description": "Create api key",
+                "tags": [
+                    "apiKeys"
+                ],
+                "parameters": [
+                    {
+                        "name": "filterByTk",
+                        "description": "primary key",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "role": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "角色名称"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "角色标识"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "角色描述"
+                    },
+                    "hidden": {
+                        "type": "boolean",
+                        "description": "是否隐藏"
+                    },
+                    "default": {
+                        "type": "boolean",
+                        "description": "是否默认"
+                    },
+                    "allowConfigure": {
+                        "type": "boolean",
+                        "description": "是否允许配置"
+                    },
+                    "allowNewMenu": {
+                        "type": "boolean",
+                        "description": "是否允许新建菜单"
+                    },
+                    "snippets": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "接口权限"
+                    },
+                    "strategy": {
+                        "type": "array",
+                        "description": "数据表权限策略",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "actions": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "description": "操作"
+                                }
+                            }
+                        }
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "创建时间"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "更新时间"
+                    }
+                }
+            },
+            "user": {
+                "type": "object",
+                "description": "用户",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "用户ID"
+                    },
+                    "nickname": {
+                        "type": "string",
+                        "description": "昵称"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "email"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "手机号码"
+                    },
+                    "appLang": {
+                        "type": "string",
+                        "description": "用户使用语言"
+                    },
+                    "systemSettings": {
+                        "type": "object",
+                        "description": "系统设置",
+                        "properties": {
+                            "theme": {
+                                "type": "string",
+                                "description": "用户使用主题"
+                            }
+                        }
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "创建时间"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "更新时间"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "description": "创建人"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "description": "更新人"
+                    },
+                    "departments": {
+                        "type": "array",
+                        "description": "所属部门, 部门ID 数组",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "用户名"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "密码"
+                    }
+                }
+            },
+            "roles": {
+                "type": "array",
+                "description": "角色",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "description": "角色名称"
+                        },
+                        "name": {
+                            "type": "string",
+                            "description": "角色标识"
+                        },
+                        "description": {
+                            "type": "string",
+                            "description": "角色描述"
+                        },
+                        "hidden": {
+                            "type": "boolean",
+                            "description": "是否隐藏"
+                        },
+                        "default": {
+                            "type": "boolean",
+                            "description": "是否默认"
+                        },
+                        "allowConfigure": {
+                            "type": "boolean",
+                            "description": "是否允许配置"
+                        },
+                        "allowNewMenu": {
+                            "type": "boolean",
+                            "description": "是否允许新建菜单"
+                        },
+                        "snippets": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "接口权限"
+                        },
+                        "strategy": {
+                            "type": "array",
+                            "description": "数据表权限策略",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "actions": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "description": "操作"
+                                    }
+                                }
+                            }
+                        },
+                        "createdAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "创建时间"
+                        },
+                        "updatedAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "更新时间"
+                        }
+                    }
+                }
+            },
+            "authenticator": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "ID"
+                    },
+                    "authType": {
+                        "type": "string",
+                        "description": "登录方式类型"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "登录方式标识"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "登录方式标题"
+                    },
+                    "options": {
+                        "type": "object",
+                        "description": "登录方式配置"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "登录方式描述"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "是否启用"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "创建时间"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "更新时间"
+                    },
+                    "createdById": {
+                        "type": "integer",
+                        "description": "创建人"
+                    },
+                    "updatedById": {
+                        "type": "integer",
+                        "description": "更新人"
+                    }
+                }
+            },
+            "uiSchema": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "example": "void"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "{{ t(\"Actions\") }}",
+                        "description": "ui schema's title"
+                    },
+                    "x-uid": {
+                        "type": "string",
+                        "example": "ygdvvfnw3h8",
+                        "description": "unique id of ui schema node"
+                    },
+                    "x-index": {
+                        "type": "integer",
+                        "exmaple": 1,
+                        "description": "ui schema's order index"
+                    },
+                    "x-async": {
+                        "type": "boolean",
+                        "example": false,
+                        "description": "async or not"
+                    },
+                    "name": {
+                        "type": "string",
+                        "name": "2qakvs173rs",
+                        "description": "ui schema's name"
+                    },
+                    "properties": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/components/schemas/uiSchema"
+                        }
+                    }
+                }
+            },
+            "userData": {
+                "type": "object",
+                "description": "用户数据",
+                "properties": {
+                    "dataType": {
+                        "type": "string",
+                        "description": "数据类型, 目前可选值为: user, department"
+                    },
+                    "uniqueKey": {
+                        "type": "string",
+                        "description": "唯一键"
+                    },
+                    "records": {
+                        "type": "array",
+                        "description": "数据, 若 dataType 为 user, 则为用户数据字段见schemas/user, 若 dataType 为 department, 则为部门数据字段见schemas/department",
+                        "items": {
+                            "type": "object"
+                        }
+                    },
+                    "sourceName": {
+                        "type": "string",
+                        "description": "数据源名称"
+                    }
+                }
+            },
+            "department": {
+                "type": "object",
+                "description": "部门",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "ID"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "名称"
+                    },
+                    "parentId": {
+                        "type": "string",
+                        "description": "父级部门ID"
+                    }
+                }
+            },
+            "workflow": {
+                "model": {
+                    "type": "object",
+                    "description": "Workflow",
+                    "properties": {
+                        "id": {
+                            "type": "integer",
+                            "description": "ID"
+                        },
+                        "key": {
+                            "type": "string",
+                            "description": "Key. Variant versions of the same workflow share the same key."
+                        },
+                        "title": {
+                            "type": "string",
+                            "description": "Title"
+                        },
+                        "description": {
+                            "type": "string",
+                            "description": "Description"
+                        },
+                        "current": {
+                            "type": "boolean",
+                            "description": "Current version"
+                        },
+                        "enabled": {
+                            "type": "boolean",
+                            "description": "Enabled"
+                        },
+                        "type": {
+                            "type": "string",
+                            "description": "Event type"
+                        },
+                        "config": {
+                            "type": "object",
+                            "description": "Configuration JSON object"
+                        },
+                        "nodes": {
+                            "type": "array",
+                            "description": "Workflow nodes"
+                        },
+                        "executions": {
+                            "type": "array",
+                            "description": "Executions"
+                        },
+                        "revisions": {
+                            "type": "array",
+                            "description": "Revisions"
+                        },
+                        "executed": {
+                            "type": "integer",
+                            "description": "Executed count for a single version"
+                        },
+                        "allExecuted": {
+                            "type": "integer",
+                            "description": "Executed count for all versions of the same workflow"
+                        }
+                    }
+                },
+                "filterByTk": {
+                    "name": "filterByTk",
+                    "in": "query",
+                    "description": "Primary key of a record",
+                    "schema": {
+                        "type": "integer",
+                        "description": "ID"
+                    }
+                },
+                "filter": {
+                    "name": "filter",
+                    "in": "query",
+                    "description": "Filter parameters in JSON format",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "$ref": "#/components/schemas/workflow/model/properties/id"
+                            },
+                            "title": {
+                                "$ref": "#/components/schemas/workflow/model/properties/title"
+                            },
+                            "type": {
+                                "$ref": "#/components/schemas/workflow/model/properties/type"
+                            },
+                            "enabled": {
+                                "$ref": "#/components/schemas/workflow/model/properties/enabled"
+                            },
+                            "current": {
+                                "$ref": "#/components/schemas/workflow/model/properties/current"
+                            },
+                            "key": {
+                                "$ref": "#/components/schemas/workflow/model/properties/key"
+                            },
+                            "executed": {
+                                "$ref": "#/components/schemas/workflow/model/properties/executed"
+                            },
+                            "allExecuted": {
+                                "$ref": "#/components/schemas/workflow/model/properties/allExecuted"
+                            }
+                        }
+                    }
+                }
+            },
+            "node": {
+                "type": "object",
+                "description": "Workflow node",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "ID"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Title"
+                    },
+                    "workflowId": {
+                        "type": "integer",
+                        "description": "Workflow ID"
+                    },
+                    "upstreamId": {
+                        "type": "integer",
+                        "description": "Upstream node ID"
+                    },
+                    "upstream": {
+                        "type": "object",
+                        "description": "Upstream node",
+                        "$ref": "#/components/schemas/node"
+                    },
+                    "downstreamId": {
+                        "type": "integer",
+                        "description": "Downstream node ID in flow, not in sub-branches",
+                        "$ref": "#/components/schemas/node"
+                    },
+                    "downstream": {
+                        "type": "object",
+                        "description": "Downstream node",
+                        "$ref": "#/components/schemas/node"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Node type"
+                    },
+                    "config": {
+                        "type": "object",
+                        "description": "Configuration JSON object"
+                    },
+                    "branchIndex": {
+                        "type": "integer",
+                        "description": "Non-null if the node is a branch node of upstream"
+                    },
+                    "branches": {
+                        "type": "array",
+                        "description": "Branch nodes under the node",
+                        "items": {
+                            "$ref": "#/components/schemas/node"
+                        }
+                    }
+                }
+            },
+            "execution": {
+                "type": "object",
+                "description": "Execution record of workflow",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "ID"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "Workflow key"
+                    },
+                    "workflowId": {
+                        "type": "integer",
+                        "description": "Workflow ID"
+                    },
+                    "context": {
+                        "type": "object",
+                        "description": "Context data"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "description": "Status of execution"
+                    },
+                    "jobs": {
+                        "type": "array",
+                        "description": "Results of executed nodes",
+                        "items": {
+                            "$ref": "#/components/schemas/job"
+                        }
+                    }
+                }
+            },
+            "job": {
+                "type": "object",
+                "description": "Job record of exected node",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "ID"
+                    },
+                    "executionId": {
+                        "type": "integer",
+                        "description": "Execution ID"
+                    },
+                    "nodeId": {
+                        "type": "integer",
+                        "description": "Node ID"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "description": "Status of job"
+                    },
+                    "result": {
+                        "type": "object",
+                        "description": "Result data of job"
+                    }
+                }
+            },
+            "user_job": {
+                "type": "object",
+                "description": "User job",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "ID"
+                    },
+                    "executionId": {
+                        "type": "integer",
+                        "description": "Execution ID"
+                    },
+                    "nodeId": {
+                        "type": "integer",
+                        "description": "Node ID"
+                    },
+                    "workflowId": {
+                        "type": "integer",
+                        "description": "Workflow ID"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "description": "User ID"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "description": "Status of job"
+                    },
+                    "result": {
+                        "type": "object",
+                        "description": "Result data of job"
+                    }
+                }
+            },
+            "Theme": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "config": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "token": {
+                                "type": "object",
+                                "additionalProperties": false
+                            }
+                        },
+                        "required": [
+                            "name"
+                        ],
+                        "additionalProperties": false
+                    },
+                    "optional": {
+                        "type": "boolean"
+                    },
+                    "isBuiltIn": {
+                        "type": "boolean"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "config",
+                    "optional",
+                    "isBuiltIn"
+                ],
+                "additionalProperties": false
+            },
+            "apiKeys": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "key-name"
+                    },
+                    "role": {
+                        "type": "object"
+                    },
+                    "expiresIn": {
+                        "type": "string",
+                        "enum": [
+                            "1d",
+                            "7d",
+                            "30d",
+                            "90d",
+                            "never"
+                        ]
+                    }
+                }
+            },
+            "error": {
+                "type": "object",
+                "properties": {
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "description": "错误信息",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "uid": {
+                "name": "uid",
+                "in": "path",
+                "required": true,
+                "description": "x-uid",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "responses": {
+            "SwaggerUrls": {
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "api-key": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "collections"
+        },
+        {
+            "name": "collections.fields"
+        },
+        {
+            "name": "collectionCategories"
+        },
+        {
+            "name": "dbViews",
+            "description": "manager db views"
+        }
+    ],
+    "externalDocs": {
+        "description": "Find out more about NocoBase",
+        "url": "https://docs.nocobase.com/api/http"
+    },
+    "security": [
+        {
+            "api-key": []
+        }
+    ],
+    "servers": [
+        {
+            "url": "/api/"
+        }
+    ]
+}

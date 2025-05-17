@@ -1,0 +1,4 @@
+ignoredBuiltDependencies:
+  - es5-ext
+  - eslint-plugin-n8n-nodes-base
+  - fsevents
