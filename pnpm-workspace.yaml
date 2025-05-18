@@ -1,4 +1,6 @@
 ignoredBuiltDependencies:
+  - cpu-features
   - es5-ext
   - eslint-plugin-n8n-nodes-base
   - fsevents
+  - ssh2
