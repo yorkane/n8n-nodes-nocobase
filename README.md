@@ -1,8 +1,12 @@
 # n8n File System Operations Custom Node
 
-This is a custom n8n node for nocobase.
+This is a custom n8n node for ComfyUI.
 
 ## Features
+
+- List files and folders in a specified directory with sorting support (by time, type, filename, etc.)
+- Clean empty directories, including recursive cleaning and directory level compression
+- Fix filenames that are incompatible with Windows file system
 
 ## Installation
 
@@ -13,12 +17,12 @@ cd ~/.n8n/custom
 
 2. Clone this repository
 ```bash
-git clone https://github.com/yorkane/n8n-nodes-nocobase.git
+git clone https://github.com/yorkane/n8n-nodes-klib-comfyui.git
 ```
 
 3. Install dependencies
 ```bash
-cd n8n-nodes-nocobase
+cd n8n-nodes-klib-comfyui
 pnpm install
 ```
 

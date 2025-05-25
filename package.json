@@ -1,7 +1,7 @@
 {
-  "name": "n8n-nodes-nocobase",
+  "name": "n8n-nodes-klib-comfyui",
   "version": "1.0.5",
-  "description": "n8n node for nocobase integration",
+  "description": "n8n node for comfyui integration",
   "keywords": [
     "n8n-community-node-package",
     "comfyui"
