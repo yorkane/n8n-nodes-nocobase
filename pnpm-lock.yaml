@@ -14,6 +14,9 @@ importers:
       '@types/ws':
         specifier: ^8.5.10
         version: 8.18.1
+      axios:
+        specifier: ^1.9.0
+        version: 1.9.0
       mime-types:
         specifier: ^3.0.1
         version: 3.0.1
@@ -1082,6 +1085,9 @@ packages:
 
   axios@1.8.2:
     resolution: {integrity: sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==}
+
+  axios@1.9.0:
+    resolution: {integrity: sha512-re4CqKTJaURpzbLHtIi6XpDv20/CnpXOtjRY5/CU32L8gU8ek9UIivcfvSWvmKEngmVbrUtPpdDwWDWL7DNHvg==}
 
   bach@1.2.0:
     resolution: {integrity: sha512-bZOOfCb3gXBXbTFXq3OZtGR88LwGeJvzu6szttaIzymOTS4ZttBNOWSv7aLZja2EMycKtRYV0Oa8SNKH/zkxvg==}
@@ -5928,6 +5934,14 @@ snapshots:
       - debug
 
   axios@1.8.2:
+    dependencies:
+      follow-redirects: 1.15.9
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.9.0:
     dependencies:
       follow-redirects: 1.15.9
       form-data: 4.0.0

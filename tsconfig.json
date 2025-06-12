@@ -14,7 +14,8 @@
     "noErrorTruncation": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./dist/"
+    "outDir": "./dist/",
+    "rootDir": "./"
   },
   "include": ["nodes/**/*", "credentials/**/*"]
 } 

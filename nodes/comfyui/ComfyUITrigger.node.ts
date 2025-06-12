@@ -10,7 +10,7 @@ import { NodeConnectionType } from 'n8n-workflow';
 import WebSocket from 'ws';
 import { randomUUID } from 'crypto';
 
-export class ComfyUITrigger implements INodeType {
+export class comfyuiTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'ComfyUI Trigger',
 		name: 'comfyUiTrigger',
@@ -25,19 +25,19 @@ export class ComfyUITrigger implements INodeType {
 		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
-				name: 'comfyUICredentials',
-				required: true,
+				name: 'httpHeaderAuth',
+				required: false,
 			},
 		],
 		properties: [
 			{
-				displayName: '手动指定 ComfyUI 地址',
-				name: 'manualApiUrl',
+				displayName: 'ComfyUI 服务器地址',
+				name: 'serverUrl',
 				type: 'string',
-				default: '',
-				description: '可选：手动输入 ComfyUI WebSocket 地址 (例如 ws://localhost:8188/ws 或 wss://example.com/ws)。如果填写，将覆盖凭证中的地址。',
-				placeholder: 'ws://127.0.0.1:8188/ws',
-				required: false,
+				default: 'ws://127.0.0.1:8188',
+				description: 'ComfyUI 服务器地址 (例如 ws://localhost:8188 或 wss://example.com)，不需要包含/ws路径',
+				placeholder: 'ws://127.0.0.1:8188',
+				required: true,
 			},
 			{
 				displayName: '手动指定 Header Key',
@@ -144,26 +144,57 @@ export class ComfyUITrigger implements INodeType {
 				description: '可选：为触发器实例指定一个ID，会附加到输出结果中。',
 				required: false,
 			},
+			{
+				displayName: '启用心跳保活',
+				name: 'enableHeartbeat',
+				type: 'boolean',
+				default: true,
+				description: '启用心跳机制以保持WebSocket连接活跃，防止连接超时',
+				required: false,
+			},
+			{
+				displayName: '心跳间隔 (秒)',
+				name: 'heartbeatInterval',
+				type: 'number',
+				default: 30,
+				description: '发送心跳消息的间隔时间（秒）',
+				displayOptions: {
+					show: {
+						enableHeartbeat: [true],
+					},
+				},
+				required: false,
+			},
 		],
 	};
 
 	async trigger(this: ITriggerFunctions): Promise<ITriggerResponse> {
 		// this.logger.info('ComfyUI Trigger 开始执行');
 
-		// Get credentials
-		const credentials = await this.getCredentials('comfyUICredentials') as { apiUrl: string; apiToken?: string; headerKey?: string; } | undefined;
-
-		if (!credentials || !credentials.apiUrl) {
-			this.logger.error('ComfyUI Credentials (apiUrl) not configured or missing apiUrl field.');
-			throw new Error('ComfyUI Credentials (apiUrl) are required and not configured or missing apiUrl field.');
+		// Get server URL from node parameters
+		const serverUrl = this.getNodeParameter('serverUrl', '') as string;
+		if (!serverUrl) {
+			this.logger.error('ComfyUI 服务器地址未配置');
+			throw new Error('ComfyUI 服务器地址是必需的');
 		}
-		const serverUrlFromCreds = credentials.apiUrl;
-		const apiTokenFromCreds = credentials.apiToken;
-		const headerKeyFromCreds = credentials.headerKey;
 
-		const manualApiUrl = this.getNodeParameter('manualApiUrl', '') as string;
+		// Get manual header parameters
 		const manualHeaderKey = this.getNodeParameter('manualHeaderKey', '') as string;
 		const manualHeaderValue = this.getNodeParameter('manualHeaderValue', '') as string;
+
+		// Get credentials (optional)
+		let headerKey = 'Authorization';
+		let headerValue = '';
+		try {
+			const credentials = await this.getCredentials('httpHeaderAuth') as { name?: string; value?: string; } | undefined;
+			if (credentials) {
+				headerKey = credentials.name || 'Authorization';
+				headerValue = credentials.value || '';
+			}
+		} catch (error) {
+			// Credentials are optional, so we can continue without them
+			this.logger.debug('未配置认证凭证，将不使用认证');
+		}
 
 		const eventTypeChoice = this.getNodeParameter('eventTypeChoice', 'predefined') as string;
 		const eventType = eventTypeChoice === 'predefined' 
@@ -172,17 +203,20 @@ export class ComfyUITrigger implements INodeType {
 		const reconnectInterval = this.getNodeParameter('reconnectInterval', 5) as number;
 		const maxRetries = this.getNodeParameter('maxRetries', -1) as number;
 		const instanceId = this.getNodeParameter('instanceId', '') as string;
+		const enableHeartbeat = this.getNodeParameter('enableHeartbeat', true) as boolean;
+		const heartbeatInterval = this.getNodeParameter('heartbeatInterval', 30) as number;
 		const clientId = randomUUID();
 
-		const serverUrlToUse = manualApiUrl.trim() !== '' ? manualApiUrl.trim() : serverUrlFromCreds;
-		const headerKeyToUse = manualHeaderKey.trim() !== '' ? manualHeaderKey.trim() : (headerKeyFromCreds && headerKeyFromCreds.trim() !== '' ? headerKeyFromCreds.trim() : 'Authorization');
-		const apiTokenToUse = manualHeaderValue.trim() !== '' ? manualHeaderValue.trim() : apiTokenFromCreds;
+		const serverUrlToUse = serverUrl.trim();
+		const headerKeyToUse = manualHeaderKey.trim() !== '' ? manualHeaderKey.trim() : headerKey.trim();
+		const apiTokenToUse = manualHeaderValue.trim() !== '' ? manualHeaderValue.trim() : headerValue.trim();
 
 		this.logger.debug(`配置信息: serverUrl=${serverUrlToUse}, eventType=${eventType}, clientId=${clientId}, reconnectInterval=${reconnectInterval}, maxRetries=${maxRetries}`);
 
 		let retryCount = 0;
 		let ws: WebSocket;
 		let isClosing = false;
+		let heartbeatTimer: NodeJS.Timeout | null = null;
 
 		const createWebSocketConnection = () => {
 			if (isClosing) return;
@@ -197,7 +231,7 @@ export class ComfyUITrigger implements INodeType {
 					protocol = parsedUrl.protocol === 'https:' ? 'wss' : 'ws';
 				}
 				const wsUrl = `${protocol}://${parsedUrl.host}/ws?clientId=${clientId}`;
-				this.logger.info(`WebSocket URL: ${wsUrl}`);
+				// this.logger.info(`WebSocket URL: ${wsUrl}`);
 				
 				const authHeaders: { [key: string]: string } = {};
 				if (apiTokenToUse) {
@@ -211,6 +245,28 @@ export class ComfyUITrigger implements INodeType {
 				ws.on('open', () => {
 					this.logger.info(`WebSocket 连接已建立: ${wsUrl},headerKeyToUse=${headerKeyToUse},apiTokenToUse=${apiTokenToUse}`);
 					retryCount = 0; // 重置重试计数
+					
+					// 启动心跳机制
+					if (enableHeartbeat) {
+						this.logger.debug(`启动心跳机制，间隔: ${heartbeatInterval}秒`);
+						heartbeatTimer = setInterval(() => {
+							if (ws && ws.readyState === WebSocket.OPEN) {
+								try {
+									// 发送ping消息保持连接活跃
+									ws.ping();
+									this.logger.debug('发送心跳ping消息');
+								} catch (error) {
+									this.logger.error('发送心跳消息失败', { error });
+								}
+							} else {
+								// 连接已关闭，清理心跳定时器
+								if (heartbeatTimer) {
+									clearInterval(heartbeatTimer);
+									heartbeatTimer = null;
+								}
+							}
+						}, heartbeatInterval * 1000);
+					}
 				});
 
 				ws.on('message', (data: WebSocket.Data) => {
@@ -246,7 +302,15 @@ export class ComfyUITrigger implements INodeType {
 				});
 
 				ws.on('close', () => {
-					this.logger.info('WebSocket 连接已关闭');
+					// this.logger.info('WebSocket 连接已关闭');
+					
+					// 清理心跳定时器
+					if (heartbeatTimer) {
+						clearInterval(heartbeatTimer);
+						heartbeatTimer = null;
+						this.logger.debug('已清理心跳定时器');
+					}
+					
 					if (!isClosing) {
 						if (maxRetries === -1 || retryCount < maxRetries) {
 							retryCount++;
@@ -277,6 +341,14 @@ export class ComfyUITrigger implements INodeType {
 			closeFunction: async () => {
 				this.logger.info('关闭 WebSocket 连接');
 				isClosing = true;
+				
+				// 清理心跳定时器
+				if (heartbeatTimer) {
+					clearInterval(heartbeatTimer);
+					heartbeatTimer = null;
+					this.logger.debug('关闭时清理心跳定时器');
+				}
+				
 				if (ws && ws.readyState === WebSocket.OPEN) {
 					ws.close();
 				}
@@ -284,5 +356,3 @@ export class ComfyUITrigger implements INodeType {
 		};
 	}
 }
-
-export { ComfyUITrigger as comfyUiTrigger };
