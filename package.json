@@ -4,10 +4,10 @@
   "description": "n8n node for nocobase integration",
   "keywords": [
     "n8n-community-node-package",
-    "comfyui"
+    "nocobase"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/yorkane/n8n-nodes-klib-comfyui",
+  "homepage": "https://github.com/yorkane/n8n-nodes-nocobase",
   "author": {
     "name": "yorkane",
     "email": "whyork@qq.com"
