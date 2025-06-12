@@ -1,7 +1,7 @@
 {
-  "name": "n8n-nodes-klib-comfyui",
-  "version": "1.0.11",
-  "description": "n8n node for comfyui integration",
+  "name": "n8n-nodes-nocobase",
+  "version": "1.0.8",
+  "description": "n8n node for nocobase integration",
   "keywords": [
     "n8n-community-node-package",
     "comfyui"
@@ -30,17 +30,16 @@
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": [],
+    "credentials": [
+      "dist/credentials/NocobaseApi.credentials.js"
+    ],
     "nodes": [
-      "dist/nodes/comfyui/comfyuiTrigger.node.js",
-      "dist/nodes/comfyui/comfyui.node.js"
+      "dist/nodes/nocobase/nocobase.node.js"
     ]
   },
   "dependencies": {
     "@types/mime-types": "^2.1.4",
     "@types/ws": "^8.5.10",
-    "axios": "^1.9.0",
-    "mime-types": "^3.0.1",
     "ws": "^8.16.0"
   },
   "devDependencies": {
@@ -55,8 +54,8 @@
     "typescript": "^5.5.3"
   },
   "peerDependencies": {
-    "n8n-core": "*",
-    "n8n-workflow": "*"
+    "n8n-workflow": "*",
+    "n8n-core": "*"
   },
   "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }
