@@ -14,8 +14,12 @@ export async function handleCollectionRecordOperation(
 	let moveParamsValue: NocoBaseRequestOptions['moveOperationParams'] | undefined = undefined;
 	const queryParameters: Record<string, any> = {};
 
-	if (operation === 'get' || operation === 'update' || operation === 'delete') {
-		recordIdValue = this.getNodeParameter('recordId', itemIndex, '') as string;
+	if (operation === 'get' || operation === 'update' || operation === 'delete' || operation === 'select') {
+		const recordIdParam = operation === 'select' ? 'selectedRecordId' : 'recordId';
+		recordIdValue = this.getNodeParameter(recordIdParam, itemIndex, '') as string;
+		if (typeof recordIdValue === 'object' && recordIdValue !== null && 'value' in recordIdValue) {
+			recordIdValue = (recordIdValue as { value: string }).value;
+		}
 		if (recordIdValue === '') recordIdValue = undefined;
 	}
 
@@ -35,7 +39,7 @@ export async function handleCollectionRecordOperation(
 		}
 	}
 
-	if (operation === 'list' || operation === 'get') {
+	if (operation === 'list' || operation === 'get' || operation === 'select') {
 		const fields = this.getNodeParameter('fields', itemIndex, '') as string;
 		if (fields) queryParameters.fields = fields;
 

@@ -215,7 +215,13 @@ export async function executeNocoBaseApi(options: NocoBaseRequestOptions): Promi
 				}
 				queryParams.sticky = moveOperationParams.stickyToTop;
 			}
-			body = {}; 
+			body = {};
+			break;
+		case 'select':
+			// Select operation fetches a single record by ID, same as get
+			endpoint += ':get';
+			method = 'GET';
+			if (recordId) queryParams.filterByTk = recordId;
 			break;
 		default:
 			throw new NodeOperationError(node.getNode(), `Collection operation '${collectionOperation}' not supported.`);

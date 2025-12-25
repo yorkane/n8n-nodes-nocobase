@@ -4,7 +4,6 @@ import {
 	INodeType,
 	INodeTypeDescription,
 	NodeOperationError,
-	NodeConnectionType,
 	INodeListSearchResult,
 	ILoadOptionsFunctions,
 	IHttpRequestOptions,
@@ -24,13 +23,13 @@ class NocoBase implements INodeType {
 		icon: 'file:nocobase.svg',
 		group: ['transform'],
 		version: 1,
-		subtitle: '={{$parameter["operation"] + (($parameter["operation"] === "list" || $parameter["operation"] === "get" || $parameter["operation"] === "create" || $parameter["operation"] === "update" || $parameter["operation"] === "delete" || $parameter["operation"] === "move" || $parameter["operation"] === "uploadFile") ? ": " + $parameter["collectionName"] : "") + ($parameter["operation"] === "executeWorkflow" ? ": " + $parameter["workflowId"] : "")}}',
+		subtitle: '={{$parameter["operation"] + (($parameter["operation"] === "list" || $parameter["operation"] === "get" || $parameter["operation"] === "create" || $parameter["operation"] === "update" || $parameter["operation"] === "delete" || $parameter["operation"] === "move" || $parameter["operation"] === "select" || $parameter["operation"] === "uploadFile") ? ": " + $parameter["collectionName"] : "") + ($parameter["operation"] === "executeWorkflow" ? ": " + $parameter["workflowId"] : "")}}',
 		description: 'Interact with NocoBase API (Collections, App Info, Users, File Uploads, Workflows)',
 		defaults: {
 			name: 'NocoBase',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'nocobaseApi',
@@ -55,6 +54,12 @@ class NocoBase implements INodeType {
 						value: 'getServerInfo',
 						description: 'Get general information about the NocoBase server/application',
 						action: 'Get server info',
+					},
+					{
+						name: 'Search Record',
+						value: 'select',
+						description: 'Select a record from a collection with search support',
+						action: 'Select a record',
 					},
 					{
 						name: 'List Collections',
@@ -123,7 +128,7 @@ class NocoBase implements INodeType {
 						action: 'Move a record',
 					},
 				],
-				default: 'list',
+				default: 'select',
 			},
 			{
 				displayName: 'Collection ID',
@@ -133,7 +138,7 @@ class NocoBase implements INodeType {
 				required: true,
 				displayOptions: {
 					show: {
-						operation: ['list', 'get', 'create', 'update', 'delete', 'move', 'uploadFile', 'executeWorkflow'],
+						operation: ['list', 'get', 'create', 'update', 'delete', 'move', 'select', 'uploadFile', 'executeWorkflow'],
 					},
 				},
 				modes: [
@@ -335,7 +340,7 @@ class NocoBase implements INodeType {
 				placeholder: 'ref_obj_id_fk1,ref_obj_id_fk2',
 				displayOptions: {
 					show: {
-						operation: ['list', 'get'],
+						operation: ['list', 'get', 'select'],
 					},
 				},
 				description: 'Appended association fields (comma-separated), e.g. posts, tags',
@@ -467,6 +472,47 @@ class NocoBase implements INodeType {
 				},
 				default: false,
 				description: 'Whether to stick the record to the top',
+			},
+			{
+				displayName: 'Search Field',
+				name: 'searchField',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['select'],
+					},
+				},
+				default: 'name',
+				description: 'Field name to use for searching records in the dropdown (e.g., name, title, email)',
+			},
+			{
+				displayName: 'Select Record ID',
+				name: 'selectedRecordId',
+				type: 'resourceLocator',
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ['select'],
+					},
+				},
+				default: { mode: 'list', value: '' },
+				description: 'Select a record from the collection. Use the dropdown search to filter records by the selected search field.',
+				modes: [
+					{
+						displayName: 'From List',
+						name: 'list',
+						type: 'list',
+						typeOptions: {
+							searchListMethod: 'listRecords',
+							searchable: true,
+						},
+					},
+					{
+						displayName: 'ID',
+						name: 'id',
+						type: 'string',
+					},
+				],
 			},
 		],
 	};
@@ -606,6 +652,126 @@ class NocoBase implements INodeType {
 					return { results: [] };
 				}
 			},
+			async listRecords(this: ILoadOptionsFunctions, filter?: string): Promise<INodeListSearchResult> {
+				const credentials = await this.getCredentials('nocobaseApi');
+				const baseUrl = credentials.baseUrl as string;
+				const token = credentials.token as string;
+
+				// Get the current node's parameters to access collection name and search settings
+				const collectionName = this.getNodeParameter('collectionName') as { mode: string; value: string };
+				if (!collectionName || !collectionName.value) {
+					this.logger.error('[NocoBase Node] listRecords: Collection name is required.');
+					return { results: [] };
+				}
+
+				// Get search field
+				const searchField = this.getNodeParameter('searchField') as string ?? 'name';
+
+				let allRecords: any[] = [];
+				let page = 1;
+				const pageSize = 20;
+				const maxRecords = 100; // Maximum records to fetch
+				let hasMore = true;
+
+				// Fetch records until we have enough matches or reach maxRecords
+				while (hasMore && allRecords.length < maxRecords) {
+					const queryParams: Record<string, any> = {
+						page: page,
+						pageSize: pageSize,
+						sort: '-createdAt',
+					};
+
+					const requestOptions: IHttpRequestOptions = {
+						method: 'GET',
+						url: `${baseUrl}/api/${collectionName.value}:list`,
+						headers: {
+							'Authorization': `Bearer ${token}`,
+							'Accept': 'application/json',
+						},
+						qs: queryParams,
+						json: true,
+					};
+
+					try {
+						const response = await this.helpers.request(requestOptions);
+						let pageRecords: any[] = [];
+
+						// Handle different response formats
+						if (Array.isArray(response)) {
+							pageRecords = response;
+						} else if (response && typeof response === 'object') {
+							if (Array.isArray(response.data)) {
+								pageRecords = response.data;
+							} else if (Array.isArray(response.results)) {
+								pageRecords = response.results;
+							}
+						}
+
+						// No more records
+						if (pageRecords.length === 0) {
+							hasMore = false;
+							break;
+						}
+
+						allRecords.push(...pageRecords);
+						page++;
+
+						// Stop if we've fetched enough pages
+						if (allRecords.length >= maxRecords) {
+							break;
+						}
+
+					} catch (error) {
+						this.logger.error(`[NocoBase Node] listRecords: Error fetching page ${page}: ${(error as Error).message}`);
+						break;
+					}
+				}
+
+				let records = allRecords;
+
+				// Client-side filtering
+				if (filter && filter.trim() !== '' && records.length > 0) {
+					const filterLower = filter.toLowerCase();
+					this.logger.info(`[NocoBase Node] listRecords: Client-side filtering field='${searchField}', value='${filter}', total records=${records.length}`);
+					records = records.filter((record: any) => {
+						const fieldValue = record[searchField];
+						if (fieldValue !== null && fieldValue !== undefined) {
+							return String(fieldValue).toLowerCase().includes(filterLower);
+						}
+						return false;
+					});
+					this.logger.info(`[NocoBase Node] listRecords: Filtered to ${records.length} records`);
+				}
+
+				// Limit to first 10 records
+				records = records.slice(0, 10);
+
+				const results = records.map((record: any) => {
+					if (!record || typeof record !== 'object') {
+						return null;
+					}
+
+					// Try to get a display name from various fields
+					let displayName = `Record ${record.id || ''}`;
+
+					// Priority: title > name > searchField > id
+					if (record.title) {
+						displayName = `${record.title} (ID: ${record.id})`;
+					} else if (record.name) {
+						displayName = `${record.name} (ID: ${record.id})`;
+					} else if (record[searchField]) {
+						displayName = `${record[searchField]} (ID: ${record.id})`;
+					}
+
+					return {
+						name: displayName,
+						value: String(record.id),
+					};
+				}).filter((result): result is { name: string; value: string } => result !== null);
+
+				return { results };
+
+			},
 		},
 	};
 
@@ -625,7 +791,7 @@ class NocoBase implements INodeType {
 				let responseData: any;
 
 				// Collection Record Operations
-				if (['list', 'get', 'create', 'update', 'delete', 'move'].includes(operation)) {
+				if (['list', 'get', 'create', 'update', 'delete', 'move', 'select'].includes(operation)) {
 					const collectionNameValue = this.getNodeParameter('collectionName', i) as { mode: string; value: string };
 					const collectionName = collectionNameValue.value;
 					if (!collectionName) {
