@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-nocobase",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "n8n node for nocobase integration",
   "keywords": [
     "n8n-community-node-package",

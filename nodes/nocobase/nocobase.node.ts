@@ -667,7 +667,7 @@ class NocoBase implements INodeType {
 				// Get search field
 				const searchField = this.getNodeParameter('searchField') as string ?? 'name';
 
-				let allRecords: any[] = [];
+				const allRecords: any[] = [];
 				let page = 1;
 				const pageSize = 20;
 				const maxRecords = 100; // Maximum records to fetch
