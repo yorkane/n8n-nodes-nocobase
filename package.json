@@ -17,7 +17,7 @@
     "url": ""
   },
   "scripts": {
-    "build": "npx tsc && gulp build:icons",
+    "build": "tsc && gulp build:icons",
     "dev": "tsc --watch",
     "format": "prettier nodes --write",
     "lint": "eslint nodes package.json",
