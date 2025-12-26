@@ -47,7 +47,7 @@
     "n8n-workflow": "*",
     "@types/node": "^18",
     "@typescript-eslint/parser": "^8",
-    "@typescript-eslint/eslint-plugin": "^8"
+    "@typescript-eslint/eslint-plugin": "^8",
     "eslint": "^8.56.0",
     "eslint-plugin-n8n-nodes-base": "^1.16.1",
     "gulp": "^4.0.2",
