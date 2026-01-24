@@ -25,6 +25,7 @@ class NocoBase implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["operation"] + (($parameter["operation"] === "list" || $parameter["operation"] === "get" || $parameter["operation"] === "create" || $parameter["operation"] === "update" || $parameter["operation"] === "delete" || $parameter["operation"] === "move" || $parameter["operation"] === "select" || $parameter["operation"] === "uploadFile") ? ": " + $parameter["collectionName"] : "") + ($parameter["operation"] === "executeWorkflow" ? ": " + $parameter["workflowId"] : "")}}',
 		description: 'Interact with NocoBase API (Collections, App Info, Users, File Uploads, Workflows)',
+		usableAsTool: true,
 		defaults: {
 			name: 'NocoBase',
 		},
@@ -186,6 +187,7 @@ class NocoBase implements INodeType {
 				displayName: 'Upload Method',
 				name: 'uploadMethod',
 				type: 'options',
+				noDataExpression: false,
 				displayOptions: {
 					show: {
 						operation: ['uploadFile'],
@@ -424,6 +426,7 @@ class NocoBase implements INodeType {
 				displayName: 'Move Method',
 				name: 'moveMethod',
 				type: 'options',
+				noDataExpression: false,
 				displayOptions: {
 					show: {
 						operation: ['move'],
