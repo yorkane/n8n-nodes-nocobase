@@ -898,5 +898,6 @@ class NocoBase implements INodeType {
 	}
 }
 
+export { NocoBase };
 export { NocoBase as nocobase };
 

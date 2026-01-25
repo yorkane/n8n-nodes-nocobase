@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-nocobase",
-  "version": "1.0.14",
+  "version": "1.1.0",
   "description": "n8n node for nocobase integration",
   "keywords": [
     "n8n-community-node-package",
@@ -16,8 +16,9 @@
     "type": "git",
     "url": ""
   },
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && gulp build:icons",
+    "build": "tsc && cp nodes/nocobase/nocobase.svg dist/nodes/nocobase/nocobase.svg",
     "dev": "tsc --watch",
     "format": "prettier nodes --write",
     "lint": "eslint .",
