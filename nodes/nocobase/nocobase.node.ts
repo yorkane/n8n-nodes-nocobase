@@ -15,6 +15,7 @@ import { handleCollectionRecordOperation } from './operations/collectionRecordHa
 import { handleFileUploadOperation } from './operations/fileUploadHandler';
 import { handleExecuteWorkflowOperation } from './operations/workflowHandlers';
 import { handleGetServerInfo, handleListCustomCollections, handleListUsers, handleListWorkflows } from './operations/otherHandlers';
+import { handleBulkCreateOperation } from './operations/bulkOperationHandlers';
 
 class NocoBase implements INodeType {
 	description: INodeTypeDescription = {
@@ -23,7 +24,7 @@ class NocoBase implements INodeType {
 		icon: 'file:nocobase.svg',
 		group: ['transform'],
 		version: 1,
-		subtitle: '={{$parameter["operation"] + (($parameter["operation"] === "list" || $parameter["operation"] === "get" || $parameter["operation"] === "create" || $parameter["operation"] === "update" || $parameter["operation"] === "delete" || $parameter["operation"] === "move" || $parameter["operation"] === "select" || $parameter["operation"] === "uploadFile") ? ": " + $parameter["collectionName"] : "") + ($parameter["operation"] === "executeWorkflow" ? ": " + $parameter["workflowId"] : "")}}',
+		subtitle: '={{$parameter["operation"] + (($parameter["operation"] === "list" || $parameter["operation"] === "get" || $parameter["operation"] === "create" || $parameter["operation"] === "update" || $parameter["operation"] === "delete" || $parameter["operation"] === "move" || $parameter["operation"] === "select" || $parameter["operation"] === "uploadFile" || $parameter["operation"] === "bulkCreate") ? ": " + $parameter["collectionName"] : "") + ($parameter["operation"] === "executeWorkflow" ? ": " + $parameter["workflowId"] : "")}}',
 		description: 'Interact with NocoBase API (Collections, App Info, Users, File Uploads, Workflows)',
 		usableAsTool: true,
 		defaults: {
@@ -111,6 +112,12 @@ class NocoBase implements INodeType {
 						action: 'Create a new record',
 					},
 					{
+						name: 'Bulk Create (Collection Records)',
+						value: 'bulkCreate',
+						description: 'Create multiple records in a collection in one operation',
+						action: 'Bulk create records',
+					},
+					{
 						name: 'Update (Collection Record)',
 						value: 'update',
 						description: 'Update a record in a collection',
@@ -139,7 +146,7 @@ class NocoBase implements INodeType {
 				required: true,
 				displayOptions: {
 					show: {
-						operation: ['list', 'get', 'create', 'update', 'delete', 'move', 'select', 'uploadFile', 'executeWorkflow'],
+						operation: ['list', 'get', 'create', 'update', 'delete', 'move', 'select', 'uploadFile', 'executeWorkflow', 'bulkCreate'],
 					},
 				},
 				modes: [
@@ -320,6 +327,31 @@ class NocoBase implements INodeType {
 				},
 				default: '{}',
 				description: 'Data for creating/updating a record, providing metadata for file uploads, or input for executing a workflow.',
+			},
+			{
+				displayName: 'Bulk Data (JSON Array)',
+				name: 'bulkData',
+				type: 'json',
+				displayOptions: {
+					show: {
+						operation: ['bulkCreate'],
+					},
+				},
+				default: '[]',
+				placeholder: '[{"name": "Record 1", "status": "active"}, {"name": "Record 2", "status": "pending"}]',
+				description: 'Array of record objects to create. Each object should contain the fields for one record. AI Agents can pass this as an array directly without stringification.',
+			},
+			{
+				displayName: 'Continue on Failure',
+				name: 'bulkContinueOnFailure',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						operation: ['bulkCreate'],
+					},
+				},
+				default: true,
+				description: 'Whether to continue creating remaining records if one fails. If disabled, the operation stops at the first error.',
 			},
 			{
 				displayName: 'Fields',
@@ -801,6 +833,15 @@ class NocoBase implements INodeType {
 						throw new NodeOperationError(this.getNode(), `Collection ID is required for operation '${operation}'.`, { itemIndex: i });
 					}
 					responseData = await handleCollectionRecordOperation.call(this, i, operation, baseUrl, token, collectionName);
+				}
+				// Bulk Create Operation
+				else if (operation === 'bulkCreate') {
+					const collectionNameValue = this.getNodeParameter('collectionName', i) as { mode: string; value: string };
+					const collectionName = collectionNameValue.value;
+					if (!collectionName) {
+						throw new NodeOperationError(this.getNode(), `Collection ID is required for operation '${operation}'.`, { itemIndex: i });
+					}
+					responseData = await handleBulkCreateOperation.call(this, i, baseUrl, token, collectionName);
 				}
 				// File Upload Operation
 				else if (operation === 'uploadFile') {

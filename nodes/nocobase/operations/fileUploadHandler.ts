@@ -1,5 +1,6 @@
 import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from 'n8n-workflow';
 import { executeNocoBaseApi, NocoBaseRequestOptions } from '../query';
+import { safeParseJsonParameter } from '../utils/parameterParsing';
 
 export async function handleFileUploadOperation(
 	this: IExecuteFunctions,
@@ -47,15 +48,10 @@ export async function handleFileUploadOperation(
 
 	const uploadFileNameValue = (this.getNodeParameter('uploadFileName', itemIndex, '') as string) || undefined;
 
-	const rawDataString = this.getNodeParameter('data', itemIndex, '{}') as string; // For metadata
+	const rawData = this.getNodeParameter('data', itemIndex, '{}') as string | object; // For metadata
 	let metadataValue: object | undefined;
 	try {
-		const parsedData = JSON.parse(rawDataString);
-		if (typeof parsedData === 'object' && parsedData !== null && Object.keys(parsedData).length > 0) {
-			metadataValue = parsedData;
-		} else {
-			metadataValue = undefined; 
-		}
+		metadataValue = safeParseJsonParameter(rawData, 'Data', itemIndex, this);
 	} catch (e) {
 		metadataValue = undefined; // Default to undefined if parsing fails or JSON is empty
 		this.logger.warn(`Invalid or empty JSON in Data field for metadata for item ${itemIndex}: ${(e as Error).message}. Proceeding without metadata.`);
