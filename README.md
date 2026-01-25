@@ -4,6 +4,21 @@ This is a custom n8n node for nocobase.
 
 ## Features
 
+* **Full CRUD Support:** Create, Read, Update, and Delete records in any NocoBase collection.
+* **Workflow Integration:** Trigger and manage NocoBase workflows directly from n8n.
+* **File Management:** Upload and manage attachments within your collections.
+* **AI-Ready:** Optimized with `usableAsTool` support for seamless integration with n8n AI Agents.
+* **Flexible Data Input:** Supports both raw JSON strings and structured JavaScript objects.
+
+## AI Agent Integration
+
+This node is optimized for use with **n8n AI Agents**. It includes the `usableAsTool` flag, allowing it to be recognized as a tool within the AI Agent node.
+
+### Usage as a Tool
+1. Connect this node to an **AI Agent** node in n8n.
+2. The AI Agent will automatically identify the available operations (Create, Update, Delete, etc.).
+3. **Note:** Currently, the AI Agent passes data as structured objects. Ensure your workflow is tested to handle these inputs correctly.
+
 ## Installation
 
 1. Navigate to n8n custom nodes directory
