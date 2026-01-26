@@ -1,5 +1,6 @@
 import { IExecuteFunctions, NodeOperationError } from 'n8n-workflow';
 import { executeNocoBaseApi, NocoBaseRequestOptions } from '../query';
+import { safeParseJsonParameter } from '../utils/parameterParsing';
 
 export async function handleExecuteWorkflowOperation(
 	this: IExecuteFunctions,
@@ -20,24 +21,14 @@ export async function handleExecuteWorkflowOperation(
 	}
 
 	let dataValue: any = {}; // Default to object for triggerContext and other inputs
-	const rawDataString = this.getNodeParameter('data', itemIndex, '{}') as string;
+	const rawData = this.getNodeParameter('data', itemIndex, '{}') as string | object;
 	try {
-		// Attempt to parse, but ensure dataValue remains an object if rawDataString is empty or just {}
-		const parsedJson = JSON.parse(rawDataString);
-		if (typeof parsedJson === 'object' && parsedJson !== null) {
-			dataValue = parsedJson;
-		} else {
-			// If parsedJson is not an object (e.g. a string, number from a malformed JSON intended to be an object),
-			// or if rawDataString was not a valid JSON object string, initialize dataValue to ensure it's an object.
-			dataValue = {};
-		}
+		const parsedData = safeParseJsonParameter(rawData, 'Data', itemIndex, this);
+		dataValue = parsedData || {}; // Use parsed data or default to empty object
 	} catch (e) {
-		// If JSON.parse fails (e.g. malformed JSON that isn't empty string or "{}"),
-		// it might be safer to throw, or log and proceed with dataValue as an empty object.
-		// For now, let's ensure dataValue is an object and log a warning.
+		// If JSON parsing fails, log a warning and proceed with empty data
 		dataValue = {};
 		this.logger.warn(`Invalid JSON in Data field for workflow ${workflowIdValue}, item ${itemIndex}. Proceeding with empty data. Error: ${(e as Error).message}`);
-		// Optionally rethrow: throw new NodeOperationError(this.getNode(), `Invalid JSON in Data field: ${(e as Error).message}`, { itemIndex });
 	}
 
 	const contextCollectionParam = this.getNodeParameter('collectionName', itemIndex, '') as { value: string } | string;

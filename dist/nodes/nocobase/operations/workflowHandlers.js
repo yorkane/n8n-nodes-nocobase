@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleExecuteWorkflowOperation = handleExecuteWorkflowOperation;
 const n8n_workflow_1 = require("n8n-workflow");
 const query_1 = require("../query");
+const parameterParsing_1 = require("../utils/parameterParsing");
 async function handleExecuteWorkflowOperation(itemIndex, baseUrl, token) {
     let workflowIdValue;
     const workflowIdParam = this.getNodeParameter('workflowId', itemIndex);
@@ -16,15 +17,10 @@ async function handleExecuteWorkflowOperation(itemIndex, baseUrl, token) {
         throw new n8n_workflow_1.NodeOperationError(this.getNode(), 'Workflow ID is required for executeWorkflow operation.', { itemIndex });
     }
     let dataValue = {};
-    const rawDataString = this.getNodeParameter('data', itemIndex, '{}');
+    const rawData = this.getNodeParameter('data', itemIndex, '{}');
     try {
-        const parsedJson = JSON.parse(rawDataString);
-        if (typeof parsedJson === 'object' && parsedJson !== null) {
-            dataValue = parsedJson;
-        }
-        else {
-            dataValue = {};
-        }
+        const parsedData = (0, parameterParsing_1.safeParseJsonParameter)(rawData, 'Data', itemIndex, this);
+        dataValue = parsedData || {};
     }
     catch (e) {
         dataValue = {};

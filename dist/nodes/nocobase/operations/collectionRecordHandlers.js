@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleCollectionRecordOperation = handleCollectionRecordOperation;
-const n8n_workflow_1 = require("n8n-workflow");
 const query_1 = require("../query");
+const parameterParsing_1 = require("../utils/parameterParsing");
 async function handleCollectionRecordOperation(itemIndex, operation, baseUrl, token, collectionName) {
     let recordIdValue = undefined;
     let dataValue = undefined;
@@ -18,16 +18,8 @@ async function handleCollectionRecordOperation(itemIndex, operation, baseUrl, to
             recordIdValue = undefined;
     }
     if (operation === 'create' || operation === 'update') {
-        const rawDataString = this.getNodeParameter('data', itemIndex, '{}');
-        try {
-            dataValue = JSON.parse(rawDataString);
-            if (Object.keys(dataValue).length === 0) {
-                dataValue = undefined;
-            }
-        }
-        catch (e) {
-            throw new n8n_workflow_1.NodeOperationError(this.getNode(), `Invalid JSON in Data field: ${e.message}`, { itemIndex });
-        }
+        const rawData = this.getNodeParameter('data', itemIndex, '{}');
+        dataValue = (0, parameterParsing_1.safeParseJsonParameter)(rawData, 'Data', itemIndex, this);
     }
     if (operation === 'list' || operation === 'get' || operation === 'select') {
         const fields = this.getNodeParameter('fields', itemIndex, '');

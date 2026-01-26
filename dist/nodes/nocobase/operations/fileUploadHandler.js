@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleFileUploadOperation = handleFileUploadOperation;
 const n8n_workflow_1 = require("n8n-workflow");
 const query_1 = require("../query");
+const parameterParsing_1 = require("../utils/parameterParsing");
 async function handleFileUploadOperation(itemIndex, baseUrl, token, currentItem) {
     const collectionNameValue = this.getNodeParameter('collectionName', itemIndex);
     const collectionName = collectionNameValue.value;
@@ -36,16 +37,10 @@ async function handleFileUploadOperation(itemIndex, baseUrl, token, currentItem)
         }
     }
     const uploadFileNameValue = this.getNodeParameter('uploadFileName', itemIndex, '') || undefined;
-    const rawDataString = this.getNodeParameter('data', itemIndex, '{}');
+    const rawData = this.getNodeParameter('data', itemIndex, '{}');
     let metadataValue;
     try {
-        const parsedData = JSON.parse(rawDataString);
-        if (typeof parsedData === 'object' && parsedData !== null && Object.keys(parsedData).length > 0) {
-            metadataValue = parsedData;
-        }
-        else {
-            metadataValue = undefined;
-        }
+        metadataValue = (0, parameterParsing_1.safeParseJsonParameter)(rawData, 'Data', itemIndex, this);
     }
     catch (e) {
         metadataValue = undefined;

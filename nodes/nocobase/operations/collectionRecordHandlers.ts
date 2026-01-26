@@ -1,5 +1,6 @@
-import { IExecuteFunctions, NodeOperationError } from 'n8n-workflow';
+import { IExecuteFunctions } from 'n8n-workflow';
 import { executeNocoBaseApi, NocoBaseRequestOptions } from '../query';
+import { safeParseJsonParameter } from '../utils/parameterParsing';
 
 export async function handleCollectionRecordOperation(
 	this: IExecuteFunctions,
@@ -24,19 +25,8 @@ export async function handleCollectionRecordOperation(
 	}
 
 	if (operation === 'create' || operation === 'update') {
-		const rawDataString = this.getNodeParameter('data', itemIndex, '{}') as string;
-		try {
-			dataValue = JSON.parse(rawDataString);
-			if (Object.keys(dataValue as object).length === 0) {
-				dataValue = undefined;
-			}
-		} catch (e) {
-			throw new NodeOperationError(
-				this.getNode(),
-				`Invalid JSON in Data field: ${(e as Error).message}`,
-				{ itemIndex },
-			);
-		}
+		const rawData = this.getNodeParameter('data', itemIndex, '{}') as string | object;
+		dataValue = safeParseJsonParameter(rawData, 'Data', itemIndex, this);
 	}
 
 	if (operation === 'list' || operation === 'get' || operation === 'select') {
